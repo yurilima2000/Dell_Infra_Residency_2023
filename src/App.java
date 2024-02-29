@@ -4,30 +4,33 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class App {
-  
-    public void execute(){
-        nomes();
+
+    private ArrayList<String> names = new ArrayList<>();
+
+    public void execute() {
+        readFirstLine();
+        System.out.println(names);
     }
 
 
 
-    public void nomes(){
+    public void readFirstLine() {
 
-        try (Scanner scanner = new Scanner(new File("C:\\Users\\yuri-oliveira\\Desktop\\InfraResidency\\src\\DNIT-Distancias.csv"))) {
-            // Configurar o delimitador para vírgula (CSV padrão)
+        try (Scanner scanner = new Scanner(new File("resources\\DNIT-Distancias.csv"))) {
             scanner.useDelimiter(",");
 
-            // Verificar se há pelo menos uma linha no arquivo
             if (scanner.hasNextLine()) {
-                // Ler apenas a primeira linha
-                String primeiraLinha = scanner.nextLine();
-                System.out.println(primeiraLinha);
+                String firstLine = scanner.nextLine();
+                ArrayList<String> names = new ArrayList<>(Arrays.asList(firstLine.split(";")));
+                this.names = names;
             } else {
-                System.out.println("O arquivo está vazio.");
+                System.out.println("The file is empty.");
             }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -38,7 +41,7 @@ public class App {
 
     public void readAndPrintCSV() {        
 
-        ArrayList<String> nomes = new ArrayList<>();
+
 
 
 
