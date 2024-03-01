@@ -18,31 +18,17 @@ public class App {
     //automatizar processo,  para cada linha -> criar um arraaylist com as distancias e adicionar na matriz 
 
     public void execute() {
-        // readFirstLine();
-        // System.out.println(names);
-        linha1.add(1);
-        linha1.add(2);
-        linha1.add(3);
-        linha2.add(4);
-        linha2.add(5);
-        linha2.add(6);
-        linha3.add(7);
-        linha3.add(8);
-        linha3.add(9);
-        matriz.add(linha1);
-        matriz.add(linha2);
-        matriz.add(linha3);
+        
+        readFirstLine();
+        numeroDasCidades();
+        System.out.println("DIGITE O NUMERO DA PRIMEIRA CIDADE :");
 
-        for (ArrayList<Integer> linha : matriz) {
-            for (int elemento : linha) {
-                System.out.print(elemento + " ");
-            }
-            System.out.println(); 
-        }       
+        
+
     }
 
     public void readFirstLine() {
-        try (Scanner scanner = new Scanner(new File("resources\\DNIT-Distancias.csv"))) {
+        try (Scanner scanner = new Scanner(new File("resources/DNIT-Distancias.csv"))) {
             scanner.useDelimiter(",");
 
             if (scanner.hasNextLine()) {
@@ -58,7 +44,17 @@ public class App {
         }
     }
 
-
+    public void numeroDasCidades(){
+        System.out.println("=========================================================================");
+        System.out.println("NÚMEROS DAS CIDADES");
+        System.out.println("=========================================================================");
+        int cont = 1;
+        for(int i = 0; i < names.size(); i++){
+            System.out.println(cont + " - " + names.get(i) );
+            cont++;
+        }
+        System.out.println("=========================================================================");
+    }
 
 
 }
