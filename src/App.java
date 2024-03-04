@@ -10,30 +10,19 @@ import java.util.Scanner;
 
 public class App {
 
-    private ArrayList<String> names = new ArrayList<>();
+    private ArrayList<String> names;
     private String[][] matrix;
 
-
-    
     public void execute() {
         createNames();
         createMatrix();
         calculateDistance();
-       
-       
-
 
     }
 
-
-
-
-
-
-
-    public void calculateDistance(){
+    public void calculateDistance() {
         Scanner in = new Scanner(System.in);
-        for(int i = 0; i < names.size(); i++){
+        for (int i = 0; i < names.size(); i++) {
             System.out.print(i + "-" + names.get(i) + "| ");
         }
         System.out.println();
@@ -43,21 +32,26 @@ public class App {
         System.out.println("Agora digite o numero da segunda cidade: ");
         int y = in.nextInt();
 
-        System.out.println("Calculando distancia entre " + names.get(x).toUpperCase() + " e " + names.get(y).toUpperCase() + "...");
-        
-        String valor = matrix[x][y].trim();
+        System.out.println("Calculando distancia entre " + names.get(x).toUpperCase() + "e "
+                + names.get(y).toUpperCase());
 
+        for(int i = 0; i < 4; i++){
+            System.out.println(".");
+            try {
+                Thread.sleep(1000); // 1000 milissegundos = 1 segundo
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        String valor = matrix[x][y].trim();
 
         int distancia = Integer.parseInt(valor);
         System.out.println("DISTANCIA: " + distancia);
-
-
+        in.close();
     }
 
-
-
     public void createNames() {
-
         try (Scanner scanner = new Scanner(new File("resources\\DNIT-Distancias.csv"))) {
             scanner.useDelimiter(",");
 
@@ -74,8 +68,8 @@ public class App {
         }
     }
 
-    public void createMatrix(){
-        
+    public void createMatrix() {
+
         try (BufferedReader reader = new BufferedReader(new FileReader("resources\\DNIT-Distancias.csv"))) {
             // Pular a primeira linha (cabeçalho)
             reader.readLine();
@@ -99,4 +93,5 @@ public class App {
             e.printStackTrace();
         }
     }
+
 }
