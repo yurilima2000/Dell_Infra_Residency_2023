@@ -34,15 +34,8 @@ public class App {
 
         System.out.println("Calculando distancia entre " + names.get(x).toUpperCase() + "e "
                 + names.get(y).toUpperCase());
-
-        for(int i = 0; i < 4; i++){
-            System.out.println(".");
-            try {
-                Thread.sleep(1000); // 1000 milissegundos = 1 segundo
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        sleep();
+        
 
         String valor = matrix[x][y].trim();
 
@@ -91,6 +84,17 @@ public class App {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void sleep(){
+        for(int i = 0; i < 8; i++){
+            System.out.println("CALCULANDO... ");
+            try {
+                Thread.sleep(500); // 1000 milissegundos = 1 segundo
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
