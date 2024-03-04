@@ -5,30 +5,60 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
 
     private ArrayList<String> names = new ArrayList<>();
-    private ArrayList<ArrayList<Integer>> matriz = new ArrayList<>();
-    private ArrayList<Integer> linha1 = new ArrayList<>();
-    private ArrayList<Integer> linha2 = new ArrayList<>();
-    private ArrayList<Integer> linha3 = new ArrayList<>();
+    private String[][] matrix;
 
-    //automatizar processo,  para cada linha -> criar um arraaylist com as distancias e adicionar na matriz 
 
+    
     public void execute() {
-        
-        readFirstLine();
-        numeroDasCidades();
-        System.out.println("DIGITE O NUMERO DA PRIMEIRA CIDADE :");
+        createNames();
+        createMatrix();
+        calculateDistance();
+       
+       
 
-        
 
     }
 
-    public void readFirstLine() {
-        try (Scanner scanner = new Scanner(new File("resources/DNIT-Distancias.csv"))) {
+
+
+
+
+
+
+    public void calculateDistance(){
+        Scanner in = new Scanner(System.in);
+        for(int i = 0; i < names.size(); i++){
+            System.out.print(i + "-" + names.get(i) + "| ");
+        }
+        System.out.println();
+
+        System.out.println("Digite o numero correspondente a primeira cidade: ");
+        int x = in.nextInt();
+        System.out.println("Agora digite o numero da segunda cidade: ");
+        int y = in.nextInt();
+
+        System.out.println("Calculando distancia entre " + names.get(x).toUpperCase() + " e " + names.get(y).toUpperCase() + "...");
+        
+        String valor = matrix[x][y].trim();
+
+
+        int distancia = Integer.parseInt(valor);
+        System.out.println("DISTANCIA: " + distancia);
+
+
+    }
+
+
+
+    public void createNames() {
+
+        try (Scanner scanner = new Scanner(new File("resources\\DNIT-Distancias.csv"))) {
             scanner.useDelimiter(",");
 
             if (scanner.hasNextLine()) {
@@ -44,17 +74,29 @@ public class App {
         }
     }
 
-    public void numeroDasCidades(){
-        System.out.println("=========================================================================");
-        System.out.println("NÚMEROS DAS CIDADES");
-        System.out.println("=========================================================================");
-        int cont = 1;
-        for(int i = 0; i < names.size(); i++){
-            System.out.println(cont + " - " + names.get(i) );
-            cont++;
+    public void createMatrix(){
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader("resources\\DNIT-Distancias.csv"))) {
+            // Pular a primeira linha (cabeçalho)
+            reader.readLine();
+
+            // Inicializar uma lista para armazenar as linhas restantes
+            List<String[]> linhas = new ArrayList<>();
+
+            // Ler as linhas do arquivo e adicionar à lista
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                // Dividir a linha usando a vírgula como delimitador
+                String[] dados = linha.split(";");
+                linhas.add(dados);
+            }
+
+            // Converte a lista para uma matriz
+            String[][] matrix = linhas.toArray(new String[0][]);
+            this.matrix = matrix;
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        System.out.println("=========================================================================");
     }
-
-
 }
